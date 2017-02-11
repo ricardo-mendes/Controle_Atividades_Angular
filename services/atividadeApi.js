@@ -10,27 +10,34 @@
 		
 	function atividadeApi($http, $q) {
 	
-		var praFazer = 0;
-		var fazendo = 1;
-		var concluida = 2;
+		const praFazer = 0;
+		const fazendo = 1;
+		const concluida = 2;
+
+		var atividades = [
+			{
+				titulo: 'Estudar Padrões de Projetos', dataConclusao: "01/03/2015", status: concluida,
+			},
+			{
+				titulo: 'Estudar Padrões de Arquitetura', dataConclusao: "02/03/2017", status: fazendo,
+			}
+		];
 
 		var service = {
-			obtemAtividades: obtemAtividades
+			obterAtividades: obterAtividades,
+			criarAtividade: criarAtividade
 		};
 
 		return service;
 
 		////////////
 
-		function obtemAtividades() {
-			return [
-				{
-					titulo: 'Estudar Padrões de Projetos', dataConclusao: "01/03/2015", status: concluida,
-				},
-				{
-					titulo: 'Estudar Padrões de Arquitetura', dataConclusao: "03/05/2017", status: fazendo,
-				}
-			];
+		function obterAtividades() {
+			return atividades;
+		}
+
+		function criarAtividade(atividade) {
+			atividades.push(angular.copy(atividade)); 
 		}
 		
 	}	

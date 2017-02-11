@@ -7,11 +7,19 @@
 
 <div class="row">
 	<div class="col-lg-3">
-		<input type="text" class="form-control campo-pesquisa-data" ng-model="filtroDataConclusao" id="data" placeholder="Pesquisar pela data de conclusão">
+		<input type="text" class="form-control campo-pesquisa-data data" ng-model="filtroDataConclusao"  placeholder="Pesquisar pela data de conclusão">
 	</div>
 	<div class="col-lg-3">
 		<button class="btn btn-primary" ng-click="limparFiltroDePesquisa()">Limpar Filtro</button>
 	</div>
+	<div class="col-lg-6">&nbsp</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3">
+		<button class="btn btn-primary" data-toggle="modal" data-target="#criarAtividadeModal">Criar Atividade</button>
+	</div>
+	<div class="col-lg-9">&nbsp</div>
 </div>
 
 <div class="row">
@@ -19,9 +27,9 @@
 		<table class="table-bordered table-striped table-condensed" width="100%">
 			<thead>
 		      <tr>
-		        <th >Título</th>
-		        <th >Data de Conclusão</th>
-		        <th >Status</th>
+		        <th>Título</th>
+		        <th>Data de Conclusão</th>
+		        <th>Status</th>
 		      </tr>
 		    </thead>
 			<tr ng-repeat="atividade in atividades | filter:{dataConclusao:filtroDataConclusao}">
@@ -33,9 +41,63 @@
 	</div>
 </div>
 
-<script type="text/javascript">
+
+<!-- Modal -->
+<div id="criarAtividadeModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cadastro de Atividades</h4>
+      </div>
+      <div class="modal-body">
+  	  	<form ng-submit="criarAtividade()">
+		    <div class="form-group row">
+		      <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Título</label>
+		      <div class="col-sm-10">
+		        <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" required="required" 
+		        ng-model="atividade.titulo"> 
+		      </div>
+		    </div>
+		    <div class="form-group row">
+		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Data de Conclusão</label>
+		      <div class="col-sm-10">
+		        <input type="text" class="form-control form-control-sm data" id="smFormGroupInput" placeholder="dd/mm/aaaa" required="required" 
+		        ng-model="atividade.dataConclusao">
+		      </div>
+		    </div>
+		    <div class="form-group row">
+		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
+		      <div class="col-sm-10">
+		        <select class="form-control form-control-sm" id="smFormGroupInput" required="required"  
+		        ng-model="atividade.status">
+		        	<option value="0">Para Fazer</option>
+		        	<option value="1">Fazendo</option>
+		        	<option value="2">Concluída</option>
+		        </select>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-lg-6">
+		       <input type="submit" class="btn btn-primary" value="Salvar">
+		      </div>
+		    </div>
+  		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- //Modal-->
+
+ <script type="text/javascript">
  	$(function() {
-    	$("#data").datepicker({
+    	$(".data").datepicker({
 		    dateFormat: 'dd/mm/yy',
 		    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
 		    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
