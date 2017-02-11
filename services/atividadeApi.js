@@ -10,19 +10,19 @@
 		
 	function atividadeApi($http, $q) {
 	
-		const praFazer = 0;
-		const fazendo = 1;
-		const concluida = 2;
+		var praFazer = 0;
+		var fazendo = 1;
+		var concluida = 2;
 
 		var service = {
-			getAtividades: getAtividades
+			obtemAtividades: obtemAtividades
 		};
 
 		return service;
 
 		////////////
 
-		function getAtividades() {
+		function obtemAtividades() {
 			return [
 				{
 					titulo: 'Estudar Padrões de Projetos', dataConclusao: new Date(), status: concluida,

@@ -1,7 +1,29 @@
 
-<div>
-	A
+<div class="row">
+	<div class="col-lg-12">
+		<h3 class="titulo">Controle de Atividades</h3>
+	</div>
 </div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<table class="table tabela-atividades">
+			<thead>
+		      <tr>
+		        <th>Título</th>
+		        <th>Data de Conclusão</th>
+		        <th>Status</th>
+		      </tr>
+		    </thead>
+			<tr ng-repeat="atividade in atividades">
+				<td>{{atividade.titulo}}</td>
+				<td>{{atividade.dataConclusao}}</td>
+				<td>{{atividade.status}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
 
 
 

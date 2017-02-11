@@ -11,10 +11,16 @@
 		
 	function AtividadeController($scope, atividadeApi) { 
 		
-		$scope.showLoading = false;
+		$scope.showLoading = true;
+		$scope.atividades = null;
 
-		$scope.atividades = atividadeApi.getAtividades();
-						
+		$scope.loadAtividades = function(){
+            $scope.atividades = atividadeApi.obtemAtividades();
+            $scope.showLoading = false;
+        };
+
+        $scope.loadAtividades();
+			
 	}
 	
 }());
