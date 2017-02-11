@@ -30,20 +30,26 @@
 		        <th>Título</th>
 		        <th>Data de Conclusão</th>
 		        <th>Status</th>
+		        <th></th>
 		      </tr>
 		    </thead>
 			<tr ng-repeat="atividade in atividades | filter:{dataConclusao:filtroDataConclusao}">
 				<td class="numeric center">{{atividade.titulo}}</td>
 				<td class="numeric center">{{atividade.dataConclusao}}</td>
 				<td class="numeric center">{{atividade.status}}</td>
+				<td class="numeric center">
+					<button type="submit" class="btn btn-primary" ng-click="abrirModalDeEditarAtividade(atividade)">
+  						Editar
+					</button>
+				</td>
 			</tr>
 		</table>
 	</div>
 </div>
 
 
-<!-- Modal -->
-<div id="criarAtividadeModal" class="modal fade" role="dialog">
+<!-- Modal de Criar Atividade-->
+<div id="criarAtividadeModal" class="modal fade" role="dialog" data-backdrop="static">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -73,21 +79,75 @@
 		      <div class="col-sm-10">
 		        <select class="form-control form-control-sm" id="smFormGroupInput" required="required"  
 		        ng-model="atividade.status">
-		        	<option value="0">Para Fazer</option>
-		        	<option value="1">Fazendo</option>
-		        	<option value="2">Concluída</option>
+		        	<option value="Para fazer">Para Fazer</option>
+		        	<option value="Fazendo">Fazendo</option>
+		        	<option value="Concluída">Concluída</option>
 		        </select>
 		      </div>
 		    </div>
-		    <div class="row">
-		      <div class="col-lg-6">
-		       <input type="submit" class="btn btn-primary" value="Salvar">
+		    <div class="form-group row">
+		      <div class="col-sm-10">
+		       <input type="submit" class="btn btn-large btn-primary" value="Salvar">
 		      </div>
 		    </div>
   		</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- //Modal-->
+
+
+<!-- Modal de Editar Atividade-->
+<div id="editarAtividadeModal" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="fecharModalDeEditarAtividade()">&times;</button>
+        <h4 class="modal-title">Editar Atividade</h4>
+      </div>
+      <div class="modal-body">
+  	  	<form ng-submit="editarAtividade()">
+		    <div class="form-group row">
+		      <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Título</label>
+		      <div class="col-sm-10">
+		        <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" required="required" 
+		        ng-model="atividade.titulo"> 
+		      </div>
+		    </div>
+		    <div class="form-group row">
+		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Data de Conclusão</label>
+		      <div class="col-sm-10">
+		        <input type="text" class="form-control form-control-sm data" id="smFormGroupInput" placeholder="dd/mm/aaaa" required="required" 
+		        ng-model="atividade.dataConclusao">
+		      </div>
+		    </div>
+		    <div class="form-group row">
+		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
+		      <div class="col-sm-10">
+		        <select class="form-control form-control-sm" id="smFormGroupInput" required="required"  
+		        ng-model="atividade.status">
+		        	<option value="Para fazer">Para Fazer</option>
+		        	<option value="Fazendo">Fazendo</option>
+		        	<option value="Concluída">Concluída</option>
+		        </select>
+		      </div>
+		    </div>
+		    <!--<div class="form-group row">
+		      <div class="col-sm-10">
+		       <input type="submit" class="btn btn-large btn-primary" value="Salvar">
+		      </div>
+		    </div>-->
+  		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="fecharModalDeEditarAtividade()">Fechar</button>
       </div>
     </div>
 

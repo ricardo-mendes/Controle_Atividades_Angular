@@ -10,34 +10,52 @@
 		
 	function atividadeApi($http, $q) {
 	
-		const praFazer = 0;
-		const fazendo = 1;
-		const concluida = 2;
+		const paraFazer = "Para fazer";
+		const fazendo = "Fazendo";
+		const concluida = "Concluída";
 
 		var atividades = [
 			{
-				titulo: 'Estudar Padrões de Projetos', dataConclusao: "01/03/2015", status: concluida,
+				id: guid(), titulo: 'Estudar Padrões de Projetos', dataConclusao: "01/03/2015", status: concluida,
 			},
 			{
-				titulo: 'Estudar Padrões de Arquitetura', dataConclusao: "02/03/2017", status: fazendo,
+				id: guid(), titulo: 'Estudar Padrões de Arquitetura', dataConclusao: "02/03/2017", status: fazendo,
 			}
 		];
 
 		var service = {
-			obterAtividades: obterAtividades,
-			criarAtividade: criarAtividade
+			obterTodasAtividades: obterTodasAtividades,
+			criarAtividade: criarAtividade,
+			editarAtividade: editarAtividade
 		};
 
 		return service;
 
 		////////////
 
-		function obterAtividades() {
+		function obterTodasAtividades() {
+			console.log(atividades);
 			return atividades;
 		}
 
 		function criarAtividade(atividade) {
+			atividade.id = guid();
 			atividades.push(angular.copy(atividade)); 
+		}
+
+		function editarAtividade(atividade) {
+			//var index = atividades.indexOf(atividade);
+			//atividades[index] = atividade;
+		}
+
+		function guid() {
+		  function s4() {
+		    return Math.floor((1 + Math.random()) * 0x10000)
+		      .toString(16)
+		      .substring(1);
+		  }
+		  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+		    s4() + '-' + s4() + s4() + s4();
 		}
 		
 	}	
