@@ -1,6 +1,6 @@
 (function(){
     
-    var app = angular.module("app", ["ngRoute", "ngDragDrop"]);  
+    var app = angular.module("app", ["ngRoute", "ngDragDrop", "ui.bootstrap"]);  
     
     app.config(function($routeProvider){
         $routeProvider

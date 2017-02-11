@@ -6,9 +6,9 @@
 		.module('app')
 		.controller('AtividadeController', AtividadeController);
 		
-	AtividadeController.$inject = ['$scope', 'atividadeApi', '$q'];
+	AtividadeController.$inject = ['$scope', 'atividadeApi', '$q', '$modal'];
 		
-	function AtividadeController($scope, atividadeApi, $q) { 
+	function AtividadeController($scope, atividadeApi, $q, $modal) { 
 		
 		const paraFazer = "Para fazer";
 		const fazendo = "Fazendo";
@@ -73,13 +73,12 @@
 		};
 
 		$scope.beforeDrop = function() {
-		    var deferred = $q.defer();
-		    if (confirm('Tem certeza?')) {
-		      deferred.resolve();
-		    } else {
-		      deferred.reject();
-		    }
-   		 	return deferred.promise;
+   		 	var modalInstance = $modal.open({
+		    	templateUrl: 'modalConfirmacaoExclusao.html',
+		    	controller: 'ModalInstanceController'
+    		});
+    
+    		return modalInstance.result;
   		};
 
   		$scope.excluirAtividade = function() {

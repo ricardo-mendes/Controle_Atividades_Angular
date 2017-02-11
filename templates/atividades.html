@@ -217,6 +217,16 @@
 </div>
 <!-- //Modal-->
 
+<script type="text/ng-template" id="modalConfirmacaoExclusao.html">
+	<div class="modal-body">
+		<h4>Tem certeza que deseja excluir?<h4>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="sim()">Sim</button>
+		<button class="btn btn-warning" ng-click="nao()">Não</button>
+	</div>
+</script>
+
  <script type="text/javascript">
  	$(function() {
     	$(".data").datepicker({
