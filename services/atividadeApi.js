@@ -25,10 +25,10 @@
 		function obtemAtividades() {
 			return [
 				{
-					titulo: 'Estudar Padrões de Projetos', dataConclusao: new Date(), status: concluida,
+					titulo: 'Estudar Padrões de Projetos', dataConclusao: "01/03/2015", status: concluida,
 				},
 				{
-					titulo: 'Estudar Padrões de Arquitetura', dataConclusao: new Date(), status: fazendo,
+					titulo: 'Estudar Padrões de Arquitetura', dataConclusao: "03/05/2017", status: fazendo,
 				}
 			];
 		}

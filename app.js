@@ -5,7 +5,7 @@
     app.config(function($routeProvider){
         $routeProvider
             .when("/atividades", {
-                templateUrl: "atividades.html",
+                templateUrl: "templates/atividades.html",
                 controller: "AtividadeController"
             }) 
             .otherwise({redirectTo:"/atividades"});

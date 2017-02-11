@@ -11,6 +11,7 @@
 		
 	function AtividadeController($scope, atividadeApi) { 
 		
+		$scope.filtroDataConclusao = "";
 		$scope.showLoading = true;
 		$scope.atividades = null;
 
@@ -20,6 +21,10 @@
         };
 
         $scope.loadAtividades();
+
+        $scope.limparFiltroDePesquisa = function() {
+        	$scope.filtroDataConclusao = "";
+        };
 			
 	}
 	
