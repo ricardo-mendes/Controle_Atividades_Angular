@@ -7,9 +7,9 @@
 		.module('app')
 		.controller('AtividadeController', AtividadeController);
 		
-	AtividadeController.$inject = ['$scope', 'atividadeApi'];
+	AtividadeController.$inject = ['$scope', 'atividadeApi', '$q'];
 		
-	function AtividadeController($scope, atividadeApi) { 
+	function AtividadeController($scope, atividadeApi, $q) { 
 		
 		const paraFazer = "Para fazer";
 		const fazendo = "Fazendo";
@@ -23,8 +23,8 @@
 			dataConclusao: "", 
 			status: "0",
 		}
+		$scope.atividadeRemovida = null;
 		$scope.atividades = null;
-
 
 		$scope.loadAtividades = function(){
             $scope.atividades = atividadeApi.obterTodasAtividades();
@@ -54,11 +54,26 @@
 			$('#editarAtividadeModal').modal('hide');
 		};
 
-		$scope.editarAtividade = function(){
+		$scope.beforeDrop = function() {
+		    var deferred = $q.defer();
+		    if (confirm('Tem certeza?')) {
+		      deferred.resolve();
+		    } else {
+		      deferred.reject();
+		    }
+   		 	return deferred.promise;
+  		};
+
+  		$scope.excluirAtividade = function() {
+		    atividadeApi.excluirAtividade($scope.atividadeRemovida);
+		    $scope.loadAtividades();
+  		};
+
+		/*$scope.editarAtividade = function(){
 			//atividadeApi.editarAtividade($scope.atividade);
 			delete $scope.atividade;
 			$('#editarAtividadeModal').modal('hide');
-		};
+		};*/
     }
 	
 }());

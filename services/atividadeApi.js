@@ -26,7 +26,7 @@
 		var service = {
 			obterTodasAtividades: obterTodasAtividades,
 			criarAtividade: criarAtividade,
-			editarAtividade: editarAtividade
+			excluirAtividade: excluirAtividade
 		};
 
 		return service;
@@ -43,9 +43,15 @@
 			atividades.push(angular.copy(atividade)); 
 		}
 
+		/*
 		function editarAtividade(atividade) {
-			//var index = atividades.indexOf(atividade);
-			//atividades[index] = atividade;
+			var index = atividades.indexOf(atividade);
+			atividades[index] = atividade;
+		}*/
+
+		function excluirAtividade(atividade){
+			var index = atividades.indexOf(atividade);
+			atividades.splice(index, 1);
 		}
 
 		function guid() {
