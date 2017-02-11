@@ -7,7 +7,14 @@
 
 <div class="row">
 	<div class="col-lg-3">
-		<input type="text" class="form-control campo-pesquisa-data data" ng-model="filtroDataConclusao"  placeholder="Pesquisar pela data de conclusão">
+		<button class="btn btn-primary" data-toggle="modal" data-target="#criarAtividadeModal">Criar Atividade</button>
+	</div>
+	<div class="col-lg-9">&nbsp</div>
+</div>
+
+<div class="row pesquisa-data">
+	<div class="col-lg-3">
+		<input type="text" class="form-control data" ng-model="filtroDataConclusao"  placeholder="Pesquisar pela data de conclusão">
 	</div>
 	<div class="col-lg-3">
 		<button class="btn btn-primary" ng-click="limparFiltroDePesquisa()">Limpar Filtro</button>
@@ -16,14 +23,11 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-3">
-		<button class="btn btn-primary" data-toggle="modal" data-target="#criarAtividadeModal">Criar Atividade</button>
+	<div class="col-lg-12"> 
+	  	<div class="thumbnail area-de-exclusao" data-drop="true" ng-model="atividadeRemovida" jqyoui-droppable="{beforeDrop: 'beforeDrop', onDrop: 'excluirAtividade'}">
+	  		<h4 class="mensagem-drag-drop">Arraste a atividade para excluí-la...</h4>
+	  	</div> 
 	</div>
-	<div class="col-lg-1">&nbsp</div>
-	<div class="col-lg-6"> 
-	  	<div class="thumbnail" data-drop="true" ng-model="atividadeRemovida" jqyoui-droppable="{beforeDrop: 'beforeDrop', onDrop: 'excluirAtividade'}" ng-bind="atividadeRemovida.titulo ? 'Arraste a atividade para excluí-la...' : 'Arraste a atividade para excluí-la...'"></div>
-	</div>
-	<div class="col-lg-2">&nbsp</div>
 </div>
 
 <div class="row">
@@ -37,16 +41,18 @@
 		        <th></th>
 		      </tr>
 		    </thead>
-			<tr  class="cursor-pointer" ng-repeat="atividade in atividades | filter:{dataConclusao:filtroDataConclusao}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="atividade" jqyoui-draggable="{animate: true}" >
-				<td class="numeric center" >{{atividade.titulo}}</td>
-				<td class="numeric center">{{atividade.dataConclusao}}</td>
-				<td class="numeric center">{{atividade.status}}</td>
-				<td class="numeric center">
-					<button type="submit" class="btn btn-primary" ng-click="abrirModalDeEditarAtividade(atividade)">
-  						Editar
-					</button>
-				</td>
-			</tr>
+		    <tbody>
+				<tr ng-repeat="atividade in atividades | filter:{dataConclusao:filtroDataConclusao}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="atividade" jqyoui-draggable="{animate: true}" >
+					<td class="numeric center" >{{atividade.titulo}}</td>
+					<td class="numeric center">{{atividade.dataConclusao}}</td>
+					<td class="numeric center">{{atividade.status}}</td>
+					<td class="numeric center">
+						<button type="submit" class="btn btn-primary" ng-click="abrirModalDeEditarAtividade(atividade)">
+	  						Editar
+						</button>
+					</td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 </div>

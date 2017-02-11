@@ -9,25 +9,30 @@ body
 	margin-bottom: 45px;
 }
 
-.campo-pesquisa-data
+.pesquisa-data
 {
-	margin-bottom: 40px;
+	margin-top: 40px ;
 }
 
 .area-de-exclusao
 {
-	background-color: gray;
-}
-
-table
-{
 	margin-top: 40px;
+	height: 60px;
 }
 
-.cursor-pointer
+.mensagem-drag-drop
+{
+	padding: 8px;
+}
+
+.col-lg-12 table tbody tr
 {
 	cursor:pointer;
+	background:#D9EDF7;
 }
+
+
+
 
 
 
