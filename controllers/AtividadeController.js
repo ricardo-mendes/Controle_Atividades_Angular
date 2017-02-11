@@ -1,4 +1,3 @@
-
 (function() {
 
 	'use strict';
@@ -16,19 +15,18 @@
 		const concluida = "Concluída";
 
 		$scope.filtroDataConclusao = "";
-		$scope.showLoading = true;
 		$scope.atividade = {
 			id: "",
 			titulo: "", 
 			dataConclusao: "", 
-			status: "0",
+			status: paraFazer,
 		}
 		$scope.atividadeRemovida = null;
+		$scope.atividadeEditada = null;
 		$scope.atividades = null;
 
 		$scope.loadAtividades = function(){
             $scope.atividades = atividadeApi.obterTodasAtividades();
-            $scope.showLoading = false;
         };
 
         $scope.loadAtividades();
@@ -40,18 +38,38 @@
         $scope.criarAtividade = function(){
 			atividadeApi.criarAtividade($scope.atividade);
 			delete $scope.atividade;
-			$('#criarAtividadeModal').modal('hide');
 			$scope.loadAtividades();
+			
+			esconderModal('criarAtividadeModal');
+
+			exibirModal('atividadeCadastradaComSucessoModal');
+		    esconderModalEmDoisSegundos('atividadeCadastradaComSucessoModal');
 		};
 
 		$scope.abrirModalDeEditarAtividade = function(atividade){
-			$('#editarAtividadeModal').modal('show');
+			exibirModal('editarAtividadeModal');
+
 			$scope.atividade = atividade;
+			$scope.atividadeEditada = angular.copy(atividade);
 		};
 
 		$scope.fecharModalDeEditarAtividade = function(){
 			delete $scope.atividade;
-			$('#editarAtividadeModal').modal('hide');
+			delete $scope.atividadeEditada;
+
+			esconderModal('editarAtividadeModal');
+		};
+
+		$scope.editarAtividade = function(){
+			atividadeApi.editarAtividade($scope.atividade, $scope.atividadeEditada);
+			delete $scope.atividadeEditada;
+			delete $scope.atividade;
+			$scope.loadAtividades();
+
+			esconderModal('editarAtividadeModal');
+
+			exibirModal('atividadeAtualizadaComSucessoModal');
+		    esconderModalEmDoisSegundos('atividadeAtualizadaComSucessoModal');
 		};
 
 		$scope.beforeDrop = function() {
@@ -67,13 +85,26 @@
   		$scope.excluirAtividade = function() {
 		    atividadeApi.excluirAtividade($scope.atividadeRemovida);
 		    $scope.loadAtividades();
+
+		    exibirModal('atividadeExcluidaComSucessoModal');
+		    esconderModalEmDoisSegundos('atividadeExcluidaComSucessoModal');
   		};
 
-		/*$scope.editarAtividade = function(){
-			//atividadeApi.editarAtividade($scope.atividade);
-			delete $scope.atividade;
-			$('#editarAtividadeModal').modal('hide');
-		};*/
+  		//------------------
+
+  		function exibirModal(modalId){
+  			$('#' + modalId).modal('show');
+  		};
+
+  		function esconderModal(modalId){
+			$('#' + modalId).modal('hide');
+  		};
+
+  		function esconderModalEmDoisSegundos(modalId){
+  			setTimeout(function () {
+    			$('#' + modalId).modal('hide')
+			}, 2000);
+  		};
     }
 	
 }());

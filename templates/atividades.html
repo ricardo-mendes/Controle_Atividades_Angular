@@ -20,9 +20,8 @@
 		<button class="btn btn-primary" data-toggle="modal" data-target="#criarAtividadeModal">Criar Atividade</button>
 	</div>
 	<div class="col-lg-1">&nbsp</div>
-	<div class="col-lg-6"> <!-- ng-model="atividadeRemovida"   --> 
-	  	<div class="thumbnail" data-drop="true" ng-model="atividadeRemovida" jqyoui-droppable="{beforeDrop: 'beforeDrop', onDrop: 'excluirAtividade'}" ng-bind="atividadeRemovida.titulo ? 'Atividade excluída com sucesso!' : 'Arraste a atividade para excluí-la...'"></div>
-	  	<!-- ng-bind="atividade.titulo ? 'Remoção realizado com sucesso..!' : 'Arraste a atividade para excluí-la...'" -->
+	<div class="col-lg-6"> 
+	  	<div class="thumbnail" data-drop="true" ng-model="atividadeRemovida" jqyoui-droppable="{beforeDrop: 'beforeDrop', onDrop: 'excluirAtividade'}" ng-bind="atividadeRemovida.titulo ? 'Arraste a atividade para excluí-la...' : 'Arraste a atividade para excluí-la...'"></div>
 	</div>
 	<div class="col-lg-2">&nbsp</div>
 </div>
@@ -38,8 +37,8 @@
 		        <th></th>
 		      </tr>
 		    </thead>
-			<tr ng-repeat="atividade in atividades | filter:{dataConclusao:filtroDataConclusao}" >
-				<td class="numeric center cursor-pointer" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="atividade" jqyoui-draggable="{animate: true}" >{{atividade.titulo}}</td>
+			<tr  class="cursor-pointer" ng-repeat="atividade in atividades | filter:{dataConclusao:filtroDataConclusao}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="atividade" jqyoui-draggable="{animate: true}" >
+				<td class="numeric center" >{{atividade.titulo}}</td>
 				<td class="numeric center">{{atividade.dataConclusao}}</td>
 				<td class="numeric center">{{atividade.status}}</td>
 				<td class="numeric center">
@@ -55,107 +54,159 @@
 
 <!-- Modal de Criar Atividade-->
 <div id="criarAtividadeModal" class="modal fade" role="dialog" data-backdrop="static">
-  <div class="modal-dialog">
-
+  	<div class="modal-dialog">
     <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Cadastro de Atividades</h4>
-      </div>
-      <div class="modal-body">
-  	  	<form ng-submit="criarAtividade()">
-		    <div class="form-group row">
-		      <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Título</label>
-		      <div class="col-sm-10">
-		        <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" required="required" 
-		        ng-model="atividade.titulo"> 
-		      </div>
-		    </div>
-		    <div class="form-group row">
-		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Data de Conclusão</label>
-		      <div class="col-sm-10">
-		        <input type="text" class="form-control form-control-sm data" id="smFormGroupInput" placeholder="dd/mm/aaaa" required="required" 
-		        ng-model="atividade.dataConclusao">
-		      </div>
-		    </div>
-		    <div class="form-group row">
-		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
-		      <div class="col-sm-10">
-		        <select class="form-control form-control-sm" id="smFormGroupInput" required="required"  
-		        ng-model="atividade.status">
-		        	<option value="Para fazer">Para Fazer</option>
-		        	<option value="Fazendo">Fazendo</option>
-		        	<option value="Concluída">Concluída</option>
-		        </select>
-		      </div>
-		    </div>
-		    <div class="form-group row">
-		      <div class="col-sm-10">
-		       <input type="submit" class="btn btn-large btn-primary" value="Salvar">
-		      </div>
-		    </div>
-  		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-
-  </div>
+    	<div class="modal-content">
+	 		<div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Cadastro de Atividades</h4>
+	  		</div>
+	      	<form ng-submit="criarAtividade()">
+		  		<div class="modal-body">
+			    	<div class="form-group row">
+				      	<label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Título</label>
+				      	<div class="col-sm-10">
+				        	<input type="text" class="form-control form-control-lg" id="lgFormGroupInput" required="required" 
+				        	ng-model="atividade.titulo"> 
+				      	</div>
+			    	</div>
+				    <div class="form-group row">
+				    	<label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Data de Conclusão</label>
+				      	<div class="col-sm-10">
+					        <input type="text" class="form-control form-control-sm data" id="smFormGroupInput" placeholder="dd/mm/aaaa" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required="required"
+					        ng-model="atividade.dataConclusao">
+				      	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="smFormGroupSelect" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
+				    	<div class="col-sm-10">
+					        <select class="form-control form-control-sm" id="smFormGroupSelect" required="required"  
+					        ng-model="atividade.status">
+					        	<option value="Para fazer">Para Fazer</option>
+					        	<option value="Fazendo">Fazendo</option>
+					        	<option value="Concluída">Concluída</option>
+					        </select>
+					    </div>
+				    </div>
+	 			</div>
+		      	<div class="modal-footer">
+		      		<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+		            <input type="submit" class="btn btn-primary" value="Salvar">
+		        </div>
+	    	</form>
+    	</div>
+  	</div>
 </div>
 <!-- //Modal-->
 
 
 <!-- Modal de Editar Atividade-->
 <div id="editarAtividadeModal" class="modal fade" role="dialog" data-backdrop="static">
-  <div class="modal-dialog">
+	<div class="modal-dialog">
+    <!-- Modal content-->
+    	<div class="modal-content">
+        	<div class="modal-header">
+        		<button type="button" class="close" ng-click="fecharModalDeEditarAtividade()">&times;</button>
+        		<h4 class="modal-title">Editar Atividade</h4>
+     		</div>
+	      	<form ng-submit="editarAtividade()">
+	      		<div class="modal-body">
+				    <div class="form-group row">
+				    	<label for="lgFormGroupInputEdit" class="col-sm-2 col-form-label col-form-label-lg">Título</label>
+				    	<div class="col-sm-10">
+				        	<input type="text" class="form-control form-control-lg" id="lgFormGroupInputEdit" required="required" 
+				        ng-model="atividadeEditada.titulo"> 
+				      	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="smFormGroupInputEdit" class="col-sm-2 col-form-label col-form-label-sm">Data de Conclusão</label>
+				    	<div class="col-sm-10">
+				        	<input type="text" class="form-control form-control-sm data" id="smFormGroupInputEdit" placeholder="dd/mm/aaaa" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required="required" 
+				        	ng-model="atividadeEditada.dataConclusao">
+				      	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="smFormGroupInputEdit" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
+				    	<div class="col-sm-10">
+				       		<select class="form-control form-control-sm" id="smFormGroupInputEdit" required="required"  
+				        	ng-model="atividadeEditada.status">
+					        	<option value="Para fazer">Para Fazer</option>
+					        	<option value="Fazendo">Fazendo</option>
+					        	<option value="Concluída">Concluída</option>
+				        	</select>
+				      	</div>
+				    </div> 		
+	      		</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" ng-click="fecharModalDeEditarAtividade()">Fechar</button>
+		        	<input type="submit" class="btn btn-primary" value="Salvar">
+		      	</div>
+	      	</form>
+    	</div>
+  	</div>
+</div>
+<!-- //Modal-->
 
+<!-- Modal de Aviso do Cadastro feito com Sucesso-->
+<div id="atividadeCadastradaComSucessoModal" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" ng-click="fecharModalDeEditarAtividade()">&times;</button>
-        <h4 class="modal-title">Editar Atividade</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-  	  	<form ng-submit="editarAtividade()">
-		    <div class="form-group row">
-		      <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Título</label>
-		      <div class="col-sm-10">
-		        <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" required="required" 
-		        ng-model="atividade.titulo"> 
-		      </div>
-		    </div>
-		    <div class="form-group row">
-		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Data de Conclusão</label>
-		      <div class="col-sm-10">
-		        <input type="text" class="form-control form-control-sm data" id="smFormGroupInput" placeholder="dd/mm/aaaa" required="required" 
-		        ng-model="atividade.dataConclusao">
-		      </div>
-		    </div>
-		    <div class="form-group row">
-		      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
-		      <div class="col-sm-10">
-		        <select class="form-control form-control-sm" id="smFormGroupInput" required="required"  
-		        ng-model="atividade.status">
-		        	<option value="Para fazer">Para Fazer</option>
-		        	<option value="Fazendo">Fazendo</option>
-		        	<option value="Concluída">Concluída</option>
-		        </select>
-		      </div>
-		    </div>
-		    <!--<div class="form-group row">
-		      <div class="col-sm-10">
-		       <input type="submit" class="btn btn-large btn-primary" value="Salvar">
-		      </div>
-		    </div>-->
-  		</form>
+      	<div class="alert alert-success">
+  			Atividade Cadastrada Com Sucesso!
+		</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="fecharModalDeEditarAtividade()">Fechar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
       </div>
     </div>
+  </div>
+</div>
+<!-- //Modal-->
 
+<!-- Modal de Aviso da Edição feita com Sucesso-->
+<div id="atividadeAtualizadaComSucessoModal" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	<div class="alert alert-success">
+  			Atividade Atualizada Com Sucesso!
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //Modal-->
+
+
+<!-- Modal de Aviso de Exclusão feita com Sucesso-->
+<div id="atividadeExcluidaComSucessoModal" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	<div class="alert alert-success">
+  			Atividade Excluída Com Sucesso!
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
   </div>
 </div>
 <!-- //Modal-->

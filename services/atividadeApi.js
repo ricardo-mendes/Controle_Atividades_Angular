@@ -26,6 +26,7 @@
 		var service = {
 			obterTodasAtividades: obterTodasAtividades,
 			criarAtividade: criarAtividade,
+			editarAtividade: editarAtividade,
 			excluirAtividade: excluirAtividade
 		};
 
@@ -43,11 +44,10 @@
 			atividades.push(angular.copy(atividade)); 
 		}
 
-		/*
-		function editarAtividade(atividade) {
-			var index = atividades.indexOf(atividade);
-			atividades[index] = atividade;
-		}*/
+		function editarAtividade(atividadeAtual, atividadeAtualizada) {
+			var index = atividades.indexOf(atividadeAtual);
+			atividades.splice(index, 1, atividadeAtualizada);
+		}
 
 		function excluirAtividade(atividade){
 			var index = atividades.indexOf(atividade);
